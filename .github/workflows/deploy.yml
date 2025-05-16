@@ -1,0 +1,52 @@
+name: Deploy
+on: [push]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: kubsu
+          POSTGRES_PASSWORD: kubsu
+          POSTGRES_DB: kubsu
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker build -t kubsu-app .
+
+    - name: Run tests
+      run: |
+        docker run --network host \
+          -e DATABASE_URL="postgresql+psycopg://kubsu:kubsu@localhost:5432/kubsu" \
+          kubsu-app pytest tests/
+
+    - name: Deploy to server
+      if: success()
+      uses: appleboy/ssh-action@v1
+      with:
+        host: 212.192.134.135
+        username: newton
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd ~/tasks/docker
+          git pull
+          if docker ps -a | grep kubsu-app; then
+              docker stop kubsu-app
+              docker rm kubsu-app
+          fi
+          docker run -d \
+            --name kubsu-app \
+            -p 60080:8115 \
+            -e DATABASE_URL="postgresql+psycopg://kubsu:kubsu@localhost:5432/kubsu" \
+            kubsu-app
