@@ -21,4 +21,10 @@ RUN pip install --no-cache-dir .
 
 user appuser
 
+ENV PATH="/root/.local/bin:$PATH" \
+    PYTHONPATH="/app" \
+    DATABASE_URL="postgresql+psycopg://kubsu:kubsu@db:5432/kubsu"
+
+EXPOSE 8115
+
 CMD ["unicorn", "src.main:app","--host","0.0.0.0","--port", "8115"]
