@@ -27,9 +27,10 @@ jobs:
 
     - name: Run tests
       run: |
+        docker build --target tester -t kubsu-tester .
         docker run --network host \
           -e DATABASE_URL="postgresql+psycopg://kubsu:kubsu@localhost:5432/kubsu" \
-          kubsu-app pytest tests/
+          kubsu-tester
 
     - name: Deploy to server
       if: success()
