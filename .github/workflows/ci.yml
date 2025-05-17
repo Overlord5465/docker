@@ -50,7 +50,6 @@ jobs:
             myapp:test \
             pytest tests
 
-
       - name: Build prod image
         run: docker build -t myapp:latest .
 
