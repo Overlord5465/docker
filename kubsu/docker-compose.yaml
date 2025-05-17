@@ -3,10 +3,10 @@ services:
     image: postgres:latest
     restart: unless-stopped
     environment:
-      # создаём
-      POSTGRES_DB: db
-      POSTGRES_USER: maga
-      POSTGRES_PASSWORD: 5465
+      # создаём БД kubsu и пользователя kubsu с паролем kubsu
+      POSTGRES_DB: kubsu
+      POSTGRES_USER: kubsu
+      POSTGRES_PASSWORD: kubsu
     ports:
       - "5432:5432"
     volumes:

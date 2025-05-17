@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: maga
+-- Name: users; Type: TABLE; Schema: public; Owner: kubsu
 --
 
 CREATE TABLE public.users (
@@ -33,7 +33,7 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO kubsu;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: maga
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: kubsu
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -45,24 +45,24 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.users_id_seq OWNER TO maga;
+ALTER SEQUENCE public.users_id_seq OWNER TO kubsu;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: maga
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kubsu
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: maga
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: kubsu
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: maga
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: kubsu
 --
 
 COPY public.users (id, name) FROM stdin;
@@ -71,14 +71,14 @@ COPY public.users (id, name) FROM stdin;
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: maga
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kubsu
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 18, true);
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: maga
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: kubsu
 --
 
 ALTER TABLE ONLY public.users
