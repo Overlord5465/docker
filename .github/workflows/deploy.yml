@@ -23,14 +23,15 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Build Docker image
-      run: docker build -t kubsu-app .
+      run: docker build -t kubsu-app:test .
 
     - name: Run tests
       run: |
-        docker build --target tester -t kubsu-tester .
+        docker build --target builder -t kubsu-app:test .
         docker run --network host \
           -e DATABASE_URL="postgresql+psycopg://kubsu:kubsu@localhost:5432/kubsu" \
-          kubsu-tester
+          kubsu-app:test \
+          pytest tests
 
     - name: Deploy to server
       if: success()
