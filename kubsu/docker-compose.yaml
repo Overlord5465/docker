@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      # создаём
+      POSTGRES_DB: db
+      POSTGRES_USER: maga
+      POSTGRES_PASSWORD: 5465
+    ports:
+      - "5432:5432"
+    volumes:
+      # для постоянного хранения данных
+      - db-data:/var/lib/postgresql/data
+      # дамп прокатится единоразово при инициализации
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+volumes:
+  db-data:
+
