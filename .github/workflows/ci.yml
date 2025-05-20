@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-test-deploy:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:14
@@ -57,12 +57,16 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
- 
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p 58529 kubsu.tyvik.ru >> ~/.ssh/known_hosts
+
       - name: Deploy to remote server
         run: |
           docker save myapp:latest | \
-            ssh -o StrictHostKeyChecking=no \
-                -p 58529 \
+            ssh -p 58529 \
                 newton@kubsu.tyvik.ru \
             "podman load && \
              podman tag myapp:latest myapp:latest && \
