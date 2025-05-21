@@ -37,7 +37,7 @@ jobs:
         run: psql postgresql://kubsu:kubsu@localhost:5432/kubsu -f kubsu/dump.sql
 
       - name: Build Docker image
-        run: docker build -t myapp:test .
+        run: docker build -t myapp:latest .
 
       - name: Build test image
         run: docker build --target builder -t myapp:test .
@@ -58,7 +58,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           
-          
+
       - name: Deploy to remote server
         run: |
           docker save myapp:latest | \
