@@ -65,4 +65,5 @@ jobs:
                --name myapp \
                --network host \
                myapp:latest \
+               sleep 5 \
                uvicorn src.main:app --host 0.0.0.0 --port 8091"
