@@ -23,7 +23,7 @@ jobs:
 
       - name: Wait for Postgres
         run: |
-          sleep 5  
+          sleep 5  # Просто ждём 5 секунд вместо проверки
 
       - name: Initialize DB from dump
         run: psql postgresql://kubsu:kubsu@localhost:5432/kubsu -f kubsu/dump.sql
