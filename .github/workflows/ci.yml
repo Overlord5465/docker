@@ -58,7 +58,8 @@ jobs:
             ssh -o StrictHostKeyChecking=no \
                 -p 58529 \
                 newton@kubsu.tyvik.ru \
-            "podman load && \
+            "podman rm -f myapp || true && \
+             podman load && \
              podman tag myapp:latest myapp:latest && \
              podman run -d \
                --name myapp \
