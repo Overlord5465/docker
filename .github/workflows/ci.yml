@@ -25,6 +25,7 @@ jobs:
         run: |
           sleep 5
 
+          
       - name: Initialize DB from dump
         run: psql postgresql://kubsu:kubsu@localhost:5432/kubsu -f kubsu/dump.sql
 
